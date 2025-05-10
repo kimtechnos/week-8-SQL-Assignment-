@@ -1,11 +1,15 @@
 -- Create the database
--- CREATE DATABASE UniversityDB;
+CREATE DATABASE UniversityDB;
 USE UniversityDB;
-Schools Table CREATE TABLE Schools(
-    SchoolId INT Auto_INCREMENT PRIMARY KEY,
+-- Schools Table
+
+CREATE TABLE Schools(
+    SchoolId INT AUTO_INCREMENT PRIMARY KEY,
     SchoolName VARCHAR(100) NOT NULL UNIQUE
 );
-Departments Table CREATE TABLE Departments(
+-- Departments Table
+
+CREATE TABLE Departments(
     DepartmentID INT AUTO_INCREMENT PRIMARY KEY,
     DepartmentName VARCHAR(100) NOT NULL UNIQUE,
     SchoolID INT NOT NULL,
@@ -32,6 +36,7 @@ CREATE TABLE Students(
     FOREIGN KEY (DepartmentID) REFERENCES Departments(DepartmentID)
 );
 -- Courses Table 
+
 CREATE TABLE Courses(
     CourseID INT AUTO_INCREMENT PRIMARY KEY,
     CourseCode VARCHAR(10) NOT NULL UNIQUE,
@@ -43,6 +48,8 @@ CREATE TABLE Courses(
     FOREIGN KEY (LecturerID) REFERENCES Lectures(LecturerID)
 );
 -- Enrollments Table (Many-to-Many between Students and Courses)
+
+
 CREATE TABLE Enrollments(
     EnrollmentID INT AUTO_INCREMENT PRIMARY KEY,
     StudentID INT NOT NULL,
@@ -50,9 +57,10 @@ CREATE TABLE Enrollments(
     Semester VARCHAR(10) NOT NULL,
     Year YEAR NOT NULL,
     FOREIGN KEY (StudentID) REFERENCES Students(StudentID),
-    FOREIGN KEY(CourseID) REFERENCES Courses(CourseID),
+    FOREIGN KEY (CourseID) REFERENCES Courses(CourseID),
     UNIQUE(StudentID, CourseID, Semester, Year)
 );
+
 -- Grades Table (1-to-1 with Enrollments)
 CREATE TABLE Grades (
     EnrollmentID INT PRIMARY KEY,
